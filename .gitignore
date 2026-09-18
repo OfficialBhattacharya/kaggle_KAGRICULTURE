@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+# build outputs — regenerated from agents/<name>/main.py, never edited by hand
+build/
+submission.tar.gz
+# panel results are large; keep curated runs under evidence/ instead
+runs/*.jsonl
+# credentials
+kaggle.json
+access_token
+.kaggle/
+.env

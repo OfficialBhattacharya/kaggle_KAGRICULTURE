@@ -1,0 +1,12 @@
+# Preservation, packaging and reporting need nothing but the stdlib.
+# tests/test_repro.py runs on Python 3.8+.
+
+# The GAME ENGINE is the exception. The kaggriculture env is NOT in the PyPI
+# release of kaggle-environments; it exists only on GitHub master, which
+# requires Python >= 3.11:
+#
+#   pip install --no-deps git+https://github.com/Kaggle/kaggle-environments.git
+#
+# --no-deps is deliberate: the full dependency set pulls litellm for the
+# LLM-based environments, which kaggriculture does not use and which will not
+# resolve on older Pythons.

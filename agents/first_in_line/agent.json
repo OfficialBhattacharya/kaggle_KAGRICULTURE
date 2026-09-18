@@ -1,0 +1,47 @@
+{
+  "name": "first_in_line",
+  "title": "Kaggriculture: First in Line - Stock Into Income",
+  "source_sha256": "53dc224a75301affb6ba6ea549b6d9842110b6b9913f001510d36991c8dfe07a",
+  "submitted_utc": "2026-09-18T15:58:46Z",
+  "leaderboard_score": 1538.0,
+  "kernel_ref": "digantabhattacharya/kaggriculture-first-in-line-stock-into-income",
+  "derived_from": [
+    {
+      "ref": "ahmedberatozer/kaggriculture-v48-clear-the-queue",
+      "source_sha256": "4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96",
+      "role": "core (complete V48 retained)",
+      "license": "Apache-2.0"
+    },
+    {
+      "ref": "lynnsakurai/farming-score-v2-a-better-approach",
+      "role": "pressure-accounting repair, compared as adaptation",
+      "license": "Apache-2.0",
+      "note": "standalone cell differed from its own declared digest; not counted as a verified original"
+    },
+    {
+      "ref": "seyitkaangunes/kaggriculture-2820-score",
+      "role": "R2 lineage",
+      "license": "Apache-2.0"
+    },
+    {
+      "ref": "ahmedberatozer/kaggriculture-v46-first-turn-microstructure-and-s",
+      "role": "R2 lineage",
+      "license": "Apache-2.0"
+    },
+    {
+      "ref": "jaxa623/beyond-48-0-128-128-worlds-with-95-cis",
+      "role": "R2 lineage",
+      "license": "Apache-2.0"
+    },
+    {
+      "ref": "nathanjacob/kaggriculture-pipe-8-clean-opening",
+      "role": "R2 lineage",
+      "license": "Apache-2.0"
+    }
+  ],
+  "changes": [
+    "_ADV_LOOK set to 8 (V48 default is 3, declared as the single experiment)"
+  ],
+  "evidence": "evidence/2026-09-18-first-in-line.json",
+  "notes": "Local panel: 136W/8L/0T over 144 confirmation games on 12 held-back seed clusters, six opponents, both seats. All 8 losses were to unchanged V48; worst margin -171. Panel numbers are not a leaderboard forecast."
+}

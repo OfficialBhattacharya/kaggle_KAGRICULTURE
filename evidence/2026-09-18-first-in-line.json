@@ -1,0 +1,1040 @@
+{
+  "protocol": {
+    "created_utc": "2026-09-18T12:31:07.413633+00:00",
+    "candidates": [
+      "control",
+      "queue",
+      "guardfix",
+      "queueguard",
+      "queueguard8",
+      "v48",
+      "v48look6",
+      "v48look8",
+      "salem"
+    ],
+    "rivals": [
+      "Live",
+      "R1",
+      "v48",
+      "Donor4",
+      "salem",
+      "Frontier"
+    ],
+    "screen_seeds": [
+      918310,
+      918311,
+      918312
+    ],
+    "holdout_seeds": [
+      918970,
+      918971,
+      918972,
+      918973,
+      918974,
+      918975,
+      918976,
+      918977,
+      918978,
+      918979,
+      918980,
+      918981
+    ],
+    "hashes": {
+      "control": "87142c0e6576d5ca40935a6e51d28818766e424f7173da2f50b558dbe4843b39",
+      "queue": "95353f38977ce58ccbd3ed91919697a2316af3e586fbc44c1853285b7f1efb36",
+      "guardfix": "8af1a98fb37eb66b5a606a6366fcac5612f9171ee27375d8d11eae37443a98f3",
+      "queueguard": "5fe3670af80c32826d20532893af008faa27476827ce73578138efe3cf279540",
+      "queueguard8": "ceb9ee14f68c2cc80609cd1217e08eb414390a9c24b46e444136bef252880a91",
+      "v48": "4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96",
+      "v48look6": "a828301024dcbcca5e236ad95cee05db486671953e8db678587e20335abee1cb",
+      "v48look8": "53dc224a75301affb6ba6ea549b6d9842110b6b9913f001510d36991c8dfe07a",
+      "salem": "3b1cb91feb451b44d075d853f9211be216aea7f85df09d91fa232e4e9dff8fe9"
+    },
+    "selection": "match points, worst-rival points, mean margin; exclude wrapper errors; control can win",
+    "limits": "Related public policies, only twelve held-back initial seed clusters. No promised rating. V49 full cell fails its notebook digest and is not an exact-public-submission benchmark; only attributed correction helper adapted. Native engine has small known price discrepancies: official responding games required before release."
+  },
+  "selected": "v48look8",
+  "summary": {
+    "control": {
+      "games": 144,
+      "wins": 95,
+      "losses": 27,
+      "ties": 22,
+      "points": 0.7361111111111112,
+      "mean_margin": 7067.659722222223,
+      "worst_margin": -1388.0
+    },
+    "v48": {
+      "games": 144,
+      "wins": 115,
+      "losses": 7,
+      "ties": 22,
+      "points": 0.875,
+      "mean_margin": 7392.729166666667,
+      "worst_margin": -1196.0
+    },
+    "v48look8": {
+      "games": 144,
+      "wins": 136,
+      "losses": 8,
+      "ties": 0,
+      "points": 0.9444444444444444,
+      "mean_margin": 7608.263888888889,
+      "worst_margin": -171.0
+    }
+  },
+  "families": {
+    "control": {
+      "Live": {
+        "games": 24,
+        "wins": 1,
+        "losses": 1,
+        "ties": 22,
+        "points": 0.5,
+        "mean_margin": 0.0,
+        "worst_margin": -123.0
+      },
+      "R1": {
+        "games": 24,
+        "wins": 22,
+        "losses": 2,
+        "ties": 0,
+        "points": 0.9166666666666666,
+        "mean_margin": 1252.5,
+        "worst_margin": -254.0
+      },
+      "v48": {
+        "games": 24,
+        "wins": 2,
+        "losses": 22,
+        "ties": 0,
+        "points": 0.08333333333333333,
+        "mean_margin": -623.5,
+        "worst_margin": -1388.0
+      },
+      "Donor4": {
+        "games": 24,
+        "wins": 22,
+        "losses": 2,
+        "ties": 0,
+        "points": 0.9166666666666666,
+        "mean_margin": 1465.0416666666667,
+        "worst_margin": -105.0
+      },
+      "salem": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 31343.041666666668,
+        "worst_margin": 16346.0
+      },
+      "Frontier": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 8968.875,
+        "worst_margin": 4966.0
+      }
+    },
+    "v48": {
+      "Live": {
+        "games": 24,
+        "wins": 22,
+        "losses": 2,
+        "ties": 0,
+        "points": 0.9166666666666666,
+        "mean_margin": 623.5,
+        "worst_margin": -539.0
+      },
+      "R1": {
+        "games": 24,
+        "wins": 20,
+        "losses": 4,
+        "ties": 0,
+        "points": 0.8333333333333334,
+        "mean_margin": 1347.0833333333333,
+        "worst_margin": -1196.0
+      },
+      "v48": {
+        "games": 24,
+        "wins": 1,
+        "losses": 1,
+        "ties": 22,
+        "points": 0.5,
+        "mean_margin": 0.0,
+        "worst_margin": -123.0
+      },
+      "Donor4": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 2029.5416666666667,
+        "worst_margin": 678.0
+      },
+      "salem": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 31088.625,
+        "worst_margin": 16470.0
+      },
+      "Frontier": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 9267.625,
+        "worst_margin": 5252.0
+      }
+    },
+    "v48look8": {
+      "Live": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 1165.5833333333333,
+        "worst_margin": 418.0
+      },
+      "R1": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 2105.0,
+        "worst_margin": 687.0
+      },
+      "v48": {
+        "games": 24,
+        "wins": 16,
+        "losses": 8,
+        "ties": 0,
+        "points": 0.6666666666666666,
+        "mean_margin": 296.4166666666667,
+        "worst_margin": -171.0
+      },
+      "Donor4": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 2084.0416666666665,
+        "worst_margin": 666.0
+      },
+      "salem": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 31296.75,
+        "worst_margin": 16349.0
+      },
+      "Frontier": {
+        "games": 24,
+        "wins": 24,
+        "losses": 0,
+        "ties": 0,
+        "points": 1.0,
+        "mean_margin": 8701.791666666666,
+        "worst_margin": 4779.0
+      }
+    }
+  },
+  "official": [
+    {
+      "candidate": "control",
+      "opponent": "Live",
+      "seed": 918880,
+      "seat": 0,
+      "rewards": [
+        95397.0,
+        95397.0
+      ],
+      "margin": 0.0,
+      "native_rewards": [
+        95397.0,
+        95397.0
+      ],
+      "native_parity": true,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.0975602999997136,
+        0.08120070000040869
+      ]
+    },
+    {
+      "candidate": "control",
+      "opponent": "Live",
+      "seed": 918880,
+      "seat": 1,
+      "rewards": [
+        95397.0,
+        95397.0
+      ],
+      "margin": 0.0,
+      "native_rewards": [
+        95397.0,
+        95397.0
+      ],
+      "native_parity": true,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.10651569999936328,
+        0.08573499999965861
+      ]
+    },
+    {
+      "candidate": "control",
+      "opponent": "v48",
+      "seed": 918881,
+      "seat": 0,
+      "rewards": [
+        82523.0,
+        83188.0
+      ],
+      "margin": -665.0,
+      "native_rewards": [
+        82517.0,
+        83190.0
+      ],
+      "native_parity": false,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.14083060000029946,
+        0.098743800000193
+      ]
+    },
+    {
+      "candidate": "control",
+      "opponent": "v48",
+      "seed": 918881,
+      "seat": 1,
+      "rewards": [
+        83188.0,
+        82523.0
+      ],
+      "margin": -665.0,
+      "native_rewards": [
+        83190.0,
+        82517.0
+      ],
+      "native_parity": false,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.1426103999992847,
+        0.060125199999674805
+      ]
+    },
+    {
+      "candidate": "v48look8",
+      "opponent": "Live",
+      "seed": 918880,
+      "seat": 0,
+      "rewards": [
+        95724.0,
+        93673.0
+      ],
+      "margin": 2051.0,
+      "native_rewards": [
+        95728.0,
+        93666.0
+      ],
+      "native_parity": false,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.11778400000002875,
+        0.27135570000064035
+      ]
+    },
+    {
+      "candidate": "v48look8",
+      "opponent": "Live",
+      "seed": 918880,
+      "seat": 1,
+      "rewards": [
+        93673.0,
+        95724.0
+      ],
+      "margin": 2051.0,
+      "native_rewards": [
+        93666.0,
+        95728.0
+      ],
+      "native_parity": false,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.12176799999997456,
+        0.11233150000043679
+      ]
+    },
+    {
+      "candidate": "v48look8",
+      "opponent": "v48",
+      "seed": 918881,
+      "seat": 0,
+      "rewards": [
+        82951.0,
+        82626.0
+      ],
+      "margin": 325.0,
+      "native_rewards": [
+        82951.0,
+        82626.0
+      ],
+      "native_parity": true,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.13291509999999107,
+        0.10076519999984157
+      ]
+    },
+    {
+      "candidate": "v48look8",
+      "opponent": "v48",
+      "seed": 918881,
+      "seat": 1,
+      "rewards": [
+        82626.0,
+        82951.0
+      ],
+      "margin": 325.0,
+      "native_rewards": [
+        82626.0,
+        82951.0
+      ],
+      "native_parity": true,
+      "calls": [
+        719,
+        719
+      ],
+      "statuses": [
+        "DONE",
+        "DONE"
+      ],
+      "peak_seconds": [
+        0.16742030000023078,
+        0.06264069999997446
+      ]
+    }
+  ],
+  "official_summary": {
+    "control": {
+      "games": 4,
+      "wins": 0,
+      "losses": 2,
+      "ties": 2,
+      "points": 0.25
+    },
+    "v48look8": {
+      "games": 4,
+      "wins": 4,
+      "losses": 0,
+      "ties": 0,
+      "points": 1.0
+    }
+  },
+  "paired_seed_cluster_evidence": {
+    "control_all": {
+      "games": 144,
+      "seed_clusters": 12,
+      "mean_margin_delta": 540.6041666666666,
+      "margin_delta_ci95": [
+        406.5416666666667,
+        673.4791666666666
+      ],
+      "match_points_delta": 0.20833333333333334,
+      "positive_seed_clusters": 12,
+      "seed_deltas": {
+        "918970": [
+          212.66666666666666,
+          0.08333333333333333
+        ],
+        "918971": [
+          856.0,
+          0.25
+        ],
+        "918972": [
+          578.25,
+          0.08333333333333333
+        ],
+        "918973": [
+          368.1666666666667,
+          0.08333333333333333
+        ],
+        "918974": [
+          775.8333333333334,
+          0.25
+        ],
+        "918975": [
+          161.33333333333334,
+          0.25
+        ],
+        "918976": [
+          634.5,
+          0.25
+        ],
+        "918977": [
+          843.1666666666666,
+          0.25
+        ],
+        "918978": [
+          513.5,
+          0.4166666666666667
+        ],
+        "918979": [
+          814.0833333333334,
+          0.25
+        ],
+        "918980": [
+          356.0833333333333,
+          0.25
+        ],
+        "918981": [
+          373.6666666666667,
+          0.08333333333333333
+        ]
+      }
+    },
+    "control_hard_panel": {
+      "games": 96,
+      "seed_clusters": 12,
+      "mean_margin_delta": 889.25,
+      "margin_delta_ci95": [
+        707.9583333333334,
+        1067.0
+      ],
+      "match_points_delta": 0.3125,
+      "positive_seed_clusters": 12,
+      "seed_deltas": {
+        "918970": [
+          534.25,
+          0.125
+        ],
+        "918971": [
+          1361.5,
+          0.375
+        ],
+        "918972": [
+          759.25,
+          0.125
+        ],
+        "918973": [
+          585.25,
+          0.125
+        ],
+        "918974": [
+          1084.75,
+          0.375
+        ],
+        "918975": [
+          289.75,
+          0.375
+        ],
+        "918976": [
+          1095.0,
+          0.375
+        ],
+        "918977": [
+          1329.75,
+          0.375
+        ],
+        "918978": [
+          955.25,
+          0.625
+        ],
+        "918979": [
+          1165.25,
+          0.375
+        ],
+        "918980": [
+          797.75,
+          0.375
+        ],
+        "918981": [
+          713.25,
+          0.125
+        ]
+      }
+    },
+    "v48_all": {
+      "games": 144,
+      "seed_clusters": 12,
+      "mean_margin_delta": 215.53472222222223,
+      "margin_delta_ci95": [
+        62.76388888888889,
+        398.7361111111111
+      ],
+      "match_points_delta": 0.06944444444444445,
+      "positive_seed_clusters": 8,
+      "seed_deltas": {
+        "918970": [
+          -7.333333333333333,
+          -0.08333333333333333
+        ],
+        "918971": [
+          103.83333333333333,
+          0.08333333333333333
+        ],
+        "918972": [
+          775.1666666666666,
+          0.4166666666666667
+        ],
+        "918973": [
+          -26.333333333333332,
+          -0.08333333333333333
+        ],
+        "918974": [
+          121.16666666666667,
+          -0.08333333333333333
+        ],
+        "918975": [
+          -6.666666666666667,
+          0.08333333333333333
+        ],
+        "918976": [
+          212.5,
+          0.08333333333333333
+        ],
+        "918977": [
+          165.83333333333334,
+          0.08333333333333333
+        ],
+        "918978": [
+          180.33333333333334,
+          0.08333333333333333
+        ],
+        "918979": [
+          938.3333333333334,
+          0.25
+        ],
+        "918980": [
+          212.08333333333334,
+          0.08333333333333333
+        ],
+        "918981": [
+          -82.5,
+          -0.08333333333333333
+        ]
+      }
+    },
+    "v48_hard_panel": {
+      "games": 96,
+      "seed_clusters": 12,
+      "mean_margin_delta": 412.7291666666667,
+      "margin_delta_ci95": [
+        201.77083333333334,
+        649.8541666666666
+      ],
+      "match_points_delta": 0.10416666666666667,
+      "positive_seed_clusters": 11,
+      "seed_deltas": {
+        "918970": [
+          16.0,
+          -0.125
+        ],
+        "918971": [
+          323.0,
+          0.125
+        ],
+        "918972": [
+          1097.75,
+          0.625
+        ],
+        "918973": [
+          55.75,
+          -0.125
+        ],
+        "918974": [
+          236.25,
+          -0.125
+        ],
+        "918975": [
+          103.0,
+          0.125
+        ],
+        "918976": [
+          454.25,
+          0.125
+        ],
+        "918977": [
+          579.5,
+          0.125
+        ],
+        "918978": [
+          371.0,
+          0.125
+        ],
+        "918979": [
+          1327.0,
+          0.375
+        ],
+        "918980": [
+          412.5,
+          0.125
+        ],
+        "918981": [
+          -23.25,
+          -0.125
+        ]
+      }
+    }
+  },
+  "frozen_rival_diagnostic": {
+    "limits": "Fixed rival action tapes can become invalid after state divergence. Not interactive wins, not source selection, not rating forecast. Only exact reproduced controls qualify. Four native mismatch replays excluded.",
+    "rows": [
+      {
+        "episode_id": 110431120,
+        "opponent": "OBSTACLE DEVELOPER",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              117211.0,
+              117264.0
+            ],
+            "margin": -53.0
+          },
+          "v48look8": {
+            "rewards": [
+              117389.0,
+              116736.0
+            ],
+            "margin": 653.0
+          }
+        }
+      },
+      {
+        "episode_id": 110412733,
+        "opponent": "Nat Bel ML Fun",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              104354.0,
+              104288.0
+            ],
+            "margin": -66.0
+          },
+          "v48look8": {
+            "rewards": [
+              102976.0,
+              105589.0
+            ],
+            "margin": 2613.0
+          }
+        }
+      },
+      {
+        "episode_id": 110406068,
+        "opponent": "yang zhang",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              104428.0,
+              104976.0
+            ],
+            "margin": -548.0
+          },
+          "v48look8": {
+            "rewards": [
+              104570.0,
+              104635.0
+            ],
+            "margin": -65.0
+          }
+        }
+      },
+      {
+        "episode_id": 110390325,
+        "opponent": "julien gaza",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              128167.0,
+              129042.0
+            ],
+            "margin": -875.0
+          },
+          "v48look8": {
+            "rewards": [
+              127954.0,
+              128894.0
+            ],
+            "margin": -940.0
+          }
+        }
+      },
+      {
+        "episode_id": 110378438,
+        "opponent": "stars_w",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              109414.0,
+              109233.0
+            ],
+            "margin": -181.0
+          },
+          "v48look8": {
+            "rewards": [
+              109099.0,
+              109350.0
+            ],
+            "margin": 251.0
+          }
+        }
+      },
+      {
+        "episode_id": 110117332,
+        "opponent": "MAC SAHO",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              103512.0,
+              109932.0
+            ],
+            "margin": -6420.0
+          },
+          "v48look8": {
+            "rewards": [
+              103695.0,
+              109647.0
+            ],
+            "margin": -5952.0
+          }
+        }
+      },
+      {
+        "episode_id": 110220132,
+        "opponent": "eviltsundera",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              68301.0,
+              73751.0
+            ],
+            "margin": -5450.0
+          },
+          "v48look8": {
+            "rewards": [
+              68238.0,
+              73632.0
+            ],
+            "margin": -5394.0
+          }
+        }
+      },
+      {
+        "episode_id": 110107604,
+        "opponent": "Ndabenhle Ngema",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              110300.0,
+              114695.0
+            ],
+            "margin": -4395.0
+          },
+          "v48look8": {
+            "rewards": [
+              110250.0,
+              114617.0
+            ],
+            "margin": -4367.0
+          }
+        }
+      },
+      {
+        "episode_id": 110241433,
+        "opponent": "EthanL67",
+        "original_outcome": "loss",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              80109.0,
+              83409.0
+            ],
+            "margin": -3300.0
+          },
+          "v48look8": {
+            "rewards": [
+              80861.0,
+              82103.0
+            ],
+            "margin": -1242.0
+          }
+        }
+      },
+      {
+        "episode_id": 110425124,
+        "opponent": "Leonardo Viola10",
+        "original_outcome": "win",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              102947.0,
+              107729.0
+            ],
+            "margin": 4782.0
+          },
+          "v48look8": {
+            "rewards": [
+              102929.0,
+              107051.0
+            ],
+            "margin": 4122.0
+          }
+        }
+      },
+      {
+        "episode_id": 110424419,
+        "opponent": "pupen_o",
+        "original_outcome": "win",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              107745.0,
+              107051.0
+            ],
+            "margin": 694.0
+          },
+          "v48look8": {
+            "rewards": [
+              107562.0,
+              107010.0
+            ],
+            "margin": 552.0
+          }
+        }
+      },
+      {
+        "episode_id": 110423551,
+        "opponent": "Dmytro Maliarenko",
+        "original_outcome": "win",
+        "control_reproduced": true,
+        "results": {
+          "control": {
+            "rewards": [
+              112427.0,
+              114308.0
+            ],
+            "margin": 1881.0
+          },
+          "v48look8": {
+            "rewards": [
+              111944.0,
+              114263.0
+            ],
+            "margin": 2319.0
+          }
+        }
+      }
+    ]
+  },
+  "source_inventory": {
+    "captured_utc": "2026-09-18T12:29:46.234073+00:00",
+    "sources": {
+      "v48": {
+        "path": "D:\\KAGGLE\\kaggriculture\\artifacts\\side_public_2026-09-18-r3\\downloads\\v48\\main.py",
+        "ref": "ahmedberatozer/kaggriculture-v48-clear-the-queue",
+        "source_sha256": "4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96",
+        "notebook_sha256": "10b89d7ce489345361ffcc2cc14745305a6316559d53918f365ea6d288368e6c"
+      },
+      "v49": {
+        "path": "D:\\KAGGLE\\kaggriculture\\artifacts\\side_public_2026-09-18-r3\\downloads\\farmingv2\\main.py",
+        "ref": "lynnsakurai/farming-score-v2-a-better-approach",
+        "source_sha256": "cddf51ea4e5bac24e5118b12b78f771a92055e17064e062b0267724822b8a94d",
+        "notebook_sha256": "f419b98e395cf1ab970bc8355257ac2c98a27f982739647886c881d69942ac12",
+        "claimed_sha256": "d3bebf519e5c7dc0ec47000a078ef00b65d2ff4c6aa4b17588010c2f9d0b1497",
+        "claimed_hash_matches": false,
+        "limits": "Standalone cell extracted safely, but notebook claimed digest differs. Not counted as exact original submission; correction layer can be adapted separately with attribution."
+      },
+      "salem": {
+        "path": "D:\\KAGGLE\\kaggriculture\\artifacts\\side_public_2026-09-18-r3\\downloads\\salem\\main.py",
+        "ref": "salemali7/kaggriculture-2900",
+        "source_sha256": "3b1cb91feb451b44d075d853f9211be216aea7f85df09d91fa232e4e9dff8fe9",
+        "notebook_sha256": "2acebbad45c10703e1587f6e57a964f571e2a9c2891d2ffdeea19ab03846b6cc"
+      }
+    }
+  },
+  "limits": "Twelve held-back initial seed clusters, six executable but substantially related public policies, both seats. Official responding check covers only two initial seeds. Not a 2700 rating forecast."
+}

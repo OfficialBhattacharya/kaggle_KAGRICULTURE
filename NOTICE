@@ -1,0 +1,32 @@
+Kaggriculture agent — attribution
+=================================
+
+The agent in agents/first_in_line/ is a derivative work distributed under the
+Apache License 2.0. The complete licence text is in LICENSE, and the full
+upstream notice chain is preserved verbatim in the header of
+agents/first_in_line/main.py — do not strip it.
+
+Principal upstream source
+-------------------------
+Ahmed Berat Ozer — "Kaggriculture V48: Clear the Queue"
+  https://www.kaggle.com/code/ahmedberatozer/kaggriculture-v48-clear-the-queue
+  sha256 4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96
+  The complete V48 core is retained.
+
+Further credited sources
+------------------------
+  lynnsakurai   — Farming Score V2 (pressure-accounting comparison)
+  seyitkaangunes— Kaggriculture 2820 Score
+  ahmedberatozer— V46 first-turn microstructure
+  jaxa623       — Beyond 48.0
+  nathanjacob   — Kaggriculture Pipe-8 Clean Opening
+  yhay81, thomastschinkel, destbreso, aurax7, tetsutani, prvsiyan,
+  Dmitrii Gluzdov, Rayk Kretzschmar — see main.py header
+
+Our contribution
+----------------
+The declared comparison, the selected integration, and the evaluation evidence
+in evidence/. The single declared code change is `_ADV_LOOK = 8` (V48 default
+is 3), applied as a final override at the end of main.py.
+
+No donor score, author endorsement, or private leader algorithm is claimed.
