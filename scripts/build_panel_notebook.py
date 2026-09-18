@@ -142,12 +142,31 @@ def check(base, variants):
     return bad
 
 # ---- EDIT THIS: the sweep to run -------------------------------------------
+# Each of these targets a constant that already exists in the base agent and is
+# read at call time, so appending an override actually steers it.
+_ITEMS = ('STRAWBERRY','WOOL','EGG','MILK','MELON','CARROT','TOMATO')
 VARIANTS = [
-    Variant("base"),                                  # the live 1538 agent, as control
-    Variant("look6",   {"_ADV_LOOK": 6}),
-    Variant("look10",  {"_ADV_LOOK": 10}),
-    Variant("book_on", {"_ADV_BOOK": True}),          # ships False
-    Variant("debts_on",{"_ADV_SUBTRACT_DEBTS": True}) # ships False
+    Variant("base"),                                    # the live agent, as control
+
+    # 1. Fertilizer is 19.2% of planned revenue and is NOT in _ADV_ITEMS, so the
+    #    sale-advance mechanism that earned the rating never applies to it. It is
+    #    sold on 104 turns; 78 of those carry no BUY_PRODUCT order and are therefore
+    #    reachable (the advance abstains entirely on buy-back turns, so adding it
+    #    cannot collide with repurchasing fertilizer).
+    Variant("fert_adv",   {"_ADV_ITEMS": _ITEMS + ('FERTILIZER',)}),
+
+    # 2. The advance is off before step 144 (day 6) — a fifth of the season,
+    #    including the run-up to the day-10 melon dump.
+    Variant("early_adv",  {"_ADV_FROM": 48}),
+
+    # 3. Both ship False and have never been swept. They control whether advanced
+    #    sales are booked as debts so the tape's own later SELL does not double-count.
+    Variant("book_debts", {"_ADV_BOOK": True, "_ADV_SUBTRACT_DEBTS": True}),
+
+    # 4. The winning change jumped _ADV_LOOK 3 -> 8 with no fine search around it,
+    #    and the clone race horizon is the same family of knob (8 -> 9 already paid).
+    Variant("look10",     {"_ADV_LOOK": 10}),
+    Variant("clone10",    {"_RACE_HORIZON_CLONE": 10}),
 ]
 SEEDS = [918970, 918971, 918972, 918973]   # raise once you know the per-game cost
 # -----------------------------------------------------------------------------

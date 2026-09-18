@@ -4,6 +4,49 @@ Newest first. Numbers and decisions, not prose.
 
 ---
 
+## 2026-09-19 — five candidate changes wired into the panel
+
+**Rating correction: the agent is at 2420.8, not 1538.** It climbed ~880 in a day, so
+1538 was a provisional reading. V48-lineage agents settle near 2600-2800, so it is
+probably still moving. Do not compare an experiment against a number that is still in flight.
+
+**Submission slots.** Tracked = the latest 2, a sliding window. Right now slot 2 holds the
+dead v3b (497.6), so there is **one free experiment** that displaces it rather than the
+champion. After that each new submission pushes the champion out; to keep a copy tracked
+you alternate champion/experiment, and each resubmitted champion restarts at default rating.
+
+Earlier entries over-weighted this risk. The agent itself can never be lost — it is in git,
+SHA-verified, and rebuildable via `scripts/package_submission.py` — and re-climbing is fast
+(~+880/day). Only the **final 2 submissions at the 2026-09-30 deadline** are scored, after
+which games run ~2 weeks and a Bradley-Terry fit settles them. So mid-competition ladder
+position is information, not score.
+
+**Where the money comes from** (route 105, planned sales days 0-26, at base prices):
+milk 23.5%, wool 20.0%, strawberry 19.8%, **fertilizer 19.2%**, melon 11.3%, wheat 4.0%,
+egg 2.1%. Animals are ~65% of income; wheat is a cost centre that feeds them.
+
+**Five candidates now in the panel sweep**, all verified to steer constants that exist in
+the base and are read at call time:
+
+1. `fert_adv` — add FERTILIZER to `_ADV_ITEMS`. It is 19.2% of revenue and is currently
+   excluded from the sale-advance mechanism that earned the rating. Sold on 104 turns, 78 of
+   them free of a BUY_PRODUCT order and therefore reachable; the advance abstains entirely on
+   buy-back turns (line 3569), so this cannot collide with repurchasing fertilizer.
+2. `early_adv` — `_ADV_FROM` 144 -> 48. The advance is off for the first 6 days.
+3. `book_debts` — `_ADV_BOOK` and `_ADV_SUBTRACT_DEBTS` both True; both ship False, never swept.
+4. `look10` — `_ADV_LOOK` 8 -> 10. The 3 -> 8 jump had no fine search around it.
+5. `clone10` — `_RACE_HORIZON_CLONE` 9 -> 10. Same family; 8 -> 9 already paid.
+
+Not yet implemented, needs real code: a **price-floor deferral layer**. Wool and melon use
+quadratic glut curves (~59 surplus wool units reach the $1 floor from a $200 base), so
+skipping a sale when the quote is below k% of base and deferring it targets exactly the two
+products that crash hardest.
+
+**Panel is 40 games** (5 variants x 4 seeds x 2 seats). Widen SEEDS once the per-game cost
+is known — at 4 seeds most results will read inconclusive.
+
+---
+
 ## 2026-09-19 — panels move to Kaggle; strategy sweep harness
 
 **Plan change.** Dropped the local Python 3.11 install. Panels now run on Kaggle, whose
