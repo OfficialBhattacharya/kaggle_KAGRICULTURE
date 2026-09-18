@@ -71,7 +71,8 @@ def whoami() -> str | None:
     return p.read_text().strip() if p.exists() else None
 
 
-def push_kernel(*, slug: str, title: str, notebook_path: Path, competition: str,
+def push_kernel(*, slug: str, title: str, notebook_path: Path,
+                competition: str | None = None,
                 private: bool = True, gpu: bool = False, internet: bool = False,
                 dataset_sources: list[str] | None = None,
                 kernel_sources: list[str] | None = None) -> dict:
@@ -87,7 +88,7 @@ def push_kernel(*, slug: str, title: str, notebook_path: Path, competition: str,
         "enableTpu": False,
         "enableInternet": internet,
         "datasetDataSources": dataset_sources or [],
-        "competitionDataSources": [competition],
+        "competitionDataSources": [competition] if competition else [],
         "kernelDataSources": kernel_sources or [],
         "categoryIds": [],
     }

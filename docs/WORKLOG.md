@@ -4,6 +4,43 @@ Newest first. Numbers and decisions, not prose.
 
 ---
 
+## 2026-09-19 — panels move to Kaggle; strategy sweep harness
+
+**Plan change.** Dropped the local Python 3.11 install. Panels now run on Kaggle, whose
+image has 3.11+ and can `pip install` the engine from GitHub master. This Mac stays on
+3.9 and is used for editing, packaging and verification only — all of which need nothing
+but the stdlib.
+
+**Variants are appended overrides, not edits.** `_ADV_LOOK=3` at line 3537 is overridden
+by `_ADV_LOOK=8` at line 4045; Python takes the last binding. So a variant is
+`base_source + "\n_ADV_LOOK=6\n"`. The base bytes are never touched and keep SHA
+`53dc224a…`, and a variant is fully described by a small dict.
+
+**Trap worth knowing:** appending a *typo'd* constant name always becomes the final
+binding of a new, unused global — so the sweep comes back flat and reads exactly like
+"this parameter does not matter". `variants.check_variants` rejects any override whose
+constant is not already defined in the base. It still cannot catch a constant consumed
+into another structure at import time; a perfectly flat sweep is the symptom.
+
+**Sweepable surface: 34 module-level scalars.** The `_ADV_*` family (lines 3538–3543) is
+the same machinery `_ADV_LOOK` belongs to and is the most informed place to look next.
+`_ADV_BOOK` and `_ADV_SUBTRACT_DEBTS` both ship `False`, so they are cheap clean A/Bs.
+
+**Pushed:** `01_strategy_panel.ipynb` ->
+<https://www.kaggle.com/code/digantabhattacharya/kaggriculture-strategy-a-b-panel>
+(private, **internet ON** — needed to fetch the engine; the offline rule applies to the
+submitted tarball, not to an analysis notebook). Self-contained: the base agent travels
+inside it as a base85 payload, verified byte-identical to the preserved copy.
+
+Opponent is the base agent itself, so a variant beating it on paired worlds is direct
+evidence and no rival agents need downloading or attributing.
+
+**Default sweep is deliberately small** (4 seeds, 4 variants = 32 games). Time one game
+first, then widen. With 4 seeds the interval is wide and most results will read
+inconclusive — that is the honest answer, not a failure of the harness.
+
+---
+
 ## 2026-09-18 — repo created, best agent preserved
 
 **Competition closes soon.** Entry/merger deadline 2026-09-23, final submission
