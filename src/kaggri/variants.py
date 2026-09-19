@@ -22,18 +22,37 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 
+LAYERS_DIR = Path(__file__).resolve().parents[2] / "agents" / "layers"
+
+
 @dataclass(frozen=True)
 class Variant:
-    """A named set of constant overrides applied to a base agent."""
+    """A named set of constant overrides, and optionally an appended code layer.
+
+    `layer` names a file in agents/layers/. A layer captures the previous entry
+    point as its host and must leave its own function as the last callable in
+    the file — that is how Kaggle's loader picks the agent. Overrides are
+    appended AFTER the layer so they can retune the layer's own constants.
+    """
     name: str
     overrides: dict[str, object] = field(default_factory=dict)
+    layer: str | None = None
+
+    def layer_source(self) -> str:
+        if not self.layer:
+            return ""
+        path = LAYERS_DIR / f"{self.layer}.py"
+        if not path.exists():
+            raise FileNotFoundError(f"no layer {self.layer!r} in {LAYERS_DIR}")
+        return "\n\n" + path.read_text().rstrip() + "\n"
 
     def suffix(self) -> str:
-        if not self.overrides:
-            return ""
-        lines = ["", "# --- variant overrides (appended; Python takes the last binding) ---"]
-        lines += [f"{k}={v!r}" for k, v in sorted(self.overrides.items())]
-        return "\n".join(lines) + "\n"
+        out = self.layer_source()
+        if self.overrides:
+            lines = ["", "# --- variant overrides (appended; Python takes the last binding) ---"]
+            lines += [f"{k}={v!r}" for k, v in sorted(self.overrides.items())]
+            out += "\n".join(lines) + "\n"
+        return out
 
     def build(self, base_source: bytes) -> bytes:
         return base_source + self.suffix().encode()
@@ -42,9 +61,11 @@ class Variant:
         return hashlib.sha256(self.build(base_source)).hexdigest()
 
     def describe(self) -> str:
-        if not self.overrides:
-            return f"{self.name} (base, unmodified)"
-        return f"{self.name} ({', '.join(f'{k}={v!r}' for k, v in sorted(self.overrides.items()))})"
+        bits = []
+        if self.layer:
+            bits.append(f"+{self.layer}")
+        bits += [f"{k}={v!r}" for k, v in sorted(self.overrides.items())]
+        return f"{self.name} ({', '.join(bits)})" if bits else f"{self.name} (base, unmodified)"
 
 
 def current_value(source: bytes, const: str) -> str | None:
@@ -91,9 +112,29 @@ def verify_override_effective(base_source: bytes, variant: Variant) -> dict[str,
 
 def check_variants(base_source: bytes, variants) -> list[str]:
     """Return a list of problems across a sweep. Empty means safe to run."""
+    import ast
     problems = []
     for var in variants:
-        for const, info in verify_override_effective(base_source, var).items():
+        built = var.build(base_source)
+        try:
+            tree = ast.parse(built)
+        except SyntaxError as e:
+            problems.append(f"{var.name}: built source does not parse ({e})")
+            continue
+        # Kaggle's loader takes the LAST callable in the file as the agent, so a
+        # layer that is not last is silently inert.
+        callables = [n.name for n in tree.body
+                     if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]
+        if var.layer and callables and not callables[-1].endswith("_agent"):
+            problems.append(
+                f"{var.name}: last callable is {callables[-1]!r}, which does not look like "
+                f"the layer's entry point — Kaggle would load the wrong agent")
+
+        # An override must steer a constant that exists in what it is appended to.
+        # With a layer that means base + layer, since the layer defines its own
+        # knobs; checking the bare base would reject every layer parameter.
+        target = base_source + var.layer_source().encode() if var.layer else base_source
+        for const, info in verify_override_effective(target, var).items():
             if not info["defined_in_base"]:
                 problems.append(
                     f"{var.name}: {const!r} is not defined anywhere in the base agent — "

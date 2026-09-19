@@ -22,6 +22,8 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src"))
 
 source = (REPO / "agents" / "first_in_line" / "main.py").read_bytes()
+LAYER_SRC = (REPO / "agents" / "layers" / "price_floor.py").read_text()
+TEL_SRC = (REPO / "agents" / "layers" / "telemetry.py").read_text()
 PAYLOAD = base64.b85encode(gzip.compress(source, mtime=0)).decode()
 SHA = hashlib.sha256(source).hexdigest()
 
@@ -99,6 +101,18 @@ Path("agents/base").mkdir(exist_ok=True)
 Path("agents/base/main.py").write_bytes(BASE_SOURCE)
 ''')
 
+code('''
+# The price-floor layer, embedded verbatim from agents/layers/price_floor.py.
+# It captures the previous entry point as its host, adjusts only the market list,
+# and returns the host's action unchanged on any error — so the worst case is that
+# it behaves exactly like the base agent.
+LAYER_SRC = """''' + LAYER_SRC.replace("\\", "\\\\") + '''"""
+TEL_SRC = """''' + TEL_SRC.replace("\\", "\\\\") + '''"""
+import ast as _a; _a.parse(LAYER_SRC)
+print(f"layer: {len(LAYER_SRC.splitlines())} lines, "
+      f"entry point {[n.name for n in _a.parse(LAYER_SRC).body if isinstance(n,_a.FunctionDef)][-1]}")
+''')
+
 md("""
 ## 3. Define the sweep
 
@@ -118,55 +132,57 @@ from dataclasses import dataclass, field
 class Variant:
     name: str
     overrides: dict = field(default_factory=dict)
+    layer: str = ""          # code appended before the overrides
     def suffix(self):
-        if not self.overrides: return ""
-        return ("\\n# --- variant overrides (appended; last binding wins) ---\\n"
-                + "\\n".join(f"{k}={v!r}" for k,v in sorted(self.overrides.items())) + "\\n")
+        out = ("\\n\\n" + self.layer.rstrip() + "\\n") if self.layer else ""
+        if self.overrides:
+            out += ("\\n# --- variant overrides (appended; last binding wins) ---\\n"
+                    + "\\n".join(f"{k}={v!r}" for k,v in sorted(self.overrides.items())) + "\\n")
+        return out
     def build(self, base): return base + self.suffix().encode()
     def describe(self):
-        return self.name if not self.overrides else (
-            f"{self.name} (" + ", ".join(f"{k}={v!r}" for k,v in sorted(self.overrides.items())) + ")")
+        bits = (["+layer"] if self.layer else []) + [f"{k}={v!r}" for k,v in sorted(self.overrides.items())]
+        return f"{self.name} (" + ", ".join(bits) + ")" if bits else self.name
 
 def all_bindings(src, const):
     return [(i,m.group(1).strip()) for i,l in enumerate(src.decode().split("\\n"),1)
             if (m := re.match(rf"^{re.escape(const)}\\s*=\\s*(.+)$", l))]
 
 def check(base, variants):
-    """A typo'd constant name would silently become an unused global and the sweep
-    would come back flat — which reads exactly like 'this parameter does not matter'."""
+    """Two silent failures this catches:
+      * a typo'd constant becomes an unused global, so the sweep comes back flat
+        and reads exactly like 'this parameter does not matter';
+      * a layer that is not the LAST callable is never loaded by Kaggle at all."""
+    import ast as _ast
     bad = []
     for v in variants:
+        built = v.build(base)
+        target = base + (("\\n" + v.layer).encode() if v.layer else b"")
         for k in v.overrides:
-            if not all_bindings(base, k):
-                bad.append(f"{v.name}: {k!r} is not defined in the base agent")
+            if not all_bindings(target, k):
+                bad.append(f"{v.name}: {k!r} is not defined in base or layer")
+        fns = [n.name for n in _ast.parse(built).body if isinstance(n, _ast.FunctionDef)]
+        if v.layer and fns and not fns[-1].endswith("_agent"):
+            bad.append(f"{v.name}: last callable is {fns[-1]!r}, Kaggle would load the wrong agent")
     return bad
 
 # ---- EDIT THIS: the sweep to run -------------------------------------------
-# Each of these targets a constant that already exists in the base agent and is
-# read at call time, so appending an override actually steers it.
 _ITEMS = ('STRAWBERRY','WOOL','EGG','MILK','MELON','CARROT','TOMATO')
 VARIANTS = [
-    Variant("base"),                                    # the live agent, as control
+    Variant("base"),                                     # the live 2425 agent, control
 
-    # 1. Fertilizer is 19.2% of planned revenue and is NOT in _ADV_ITEMS, so the
-    #    sale-advance mechanism that earned the rating never applies to it. It is
-    #    sold on 104 turns; 78 of those carry no BUY_PRODUCT order and are therefore
-    #    reachable (the advance abstains entirely on buy-back turns, so adding it
-    #    cannot collide with repurchasing fertilizer).
-    Variant("fert_adv",   {"_ADV_ITEMS": _ITEMS + ('FERTILIZER',)}),
+    # --- the price-floor layer: targets the dominant loss mode -----------------
+    # 5 of 7 live losses were against EXACT mirrors of our planting plan, so the
+    # opponent holds the same collapsing wool/milk inventory. Wool goes from ~$215
+    # to $1 between day 14 and 15 in every game measured; 71% of our wool units
+    # were sold after that, averaging $33 against a $200 base.
+    Variant("pricefloor",  layer=LAYER_SRC),
+    Variant("floor_only",  layer=LAYER_SRC, overrides={"_PF_EARLY": False}),
+    Variant("early_only",  layer=LAYER_SRC, overrides={"_PF_FLOOR": False}),
 
-    # 2. The advance is off before step 144 (day 6) — a fifth of the season,
-    #    including the run-up to the day-10 melon dump.
-    Variant("early_adv",  {"_ADV_FROM": 48}),
-
-    # 3. Both ship False and have never been swept. They control whether advanced
-    #    sales are booked as debts so the tape's own later SELL does not double-count.
-    Variant("book_debts", {"_ADV_BOOK": True, "_ADV_SUBTRACT_DEBTS": True}),
-
-    # 4. The winning change jumped _ADV_LOOK 3 -> 8 with no fine search around it,
-    #    and the clone race horizon is the same family of knob (8 -> 9 already paid).
-    Variant("look10",     {"_ADV_LOOK": 10}),
-    Variant("clone10",    {"_RACE_HORIZON_CLONE": 10}),
+    # --- market constants already in the base, never swept ---------------------
+    Variant("fert_adv",    {"_ADV_ITEMS": _ITEMS + ('FERTILIZER',)}),
+    Variant("book_debts",  {"_ADV_BOOK": True, "_ADV_SUBTRACT_DEBTS": True}),
 ]
 SEEDS = [918970, 918971, 918972, 918973]   # raise once you know the per-game cost
 # -----------------------------------------------------------------------------
@@ -207,6 +223,31 @@ print(f"statuses={probe['statuses']}  time={probe['seconds']:.1f}s per game")
 n_games = (len(VARIANTS)-1) * len(SEEDS) * 2
 print(f"\\nplanned panel: {n_games} games ~= {n_games*probe['seconds']/60:.0f} min")
 assert all(s == "DONE" for s in probe["statuses"]), "agent errored — check logs"
+''')
+
+code('''
+# ---- DIAGNOSTIC: did the code paths actually execute? ----------------------
+# A variant that returns margin == 0 in every game is ambiguous: the parameter
+# may not matter, or its branch may never run. Only the counters tell them apart.
+import os, json as _json
+for probe_name, probe in [("base", Variant("d_base", layer=TEL_SRC)),
+                          ("pricefloor", Variant("d_pf", layer=LAYER_SRC + "\\n" + TEL_SRC)),
+                          ("fert_adv", Variant("d_fa", {"_ADV_ITEMS": _ITEMS + ("FERTILIZER",)}, layer=TEL_SRC))]:
+    if os.path.exists("/kaggle/working/telemetry.json"): os.remove("/kaggle/working/telemetry.json")
+    Path(f"agents/{probe.name}").mkdir(parents=True, exist_ok=True)
+    Path(f"agents/{probe.name}/main.py").write_bytes(probe.build(BASE_SOURCE))
+    play(f"agents/{probe.name}/main.py", "agents/base/main.py", SEEDS[0], 0)
+    rows = []
+    if os.path.exists("/kaggle/working/telemetry.json"):
+        rows = [_json.loads(l) for l in open("/kaggle/working/telemetry.json") if l.strip()]
+    print(f"\\n=== {probe_name} ===")
+    if not rows:
+        print("  NO TELEMETRY WRITTEN — the layer never reached step 718 (not the last callable?)")
+    for r in rows[:1]:
+        for k, v in sorted(r.items()):
+            if k.startswith("_") and isinstance(v, dict):
+                nz = {a: b for a, b in v.items() if b}
+                print(f"  {k:16s} {nz if nz else 'ALL ZERO — this mechanism never fired'}")
 ''')
 
 md("""
